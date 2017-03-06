@@ -37,7 +37,7 @@ def execute(conf_attrs, dbname, uid, obj, method, *args, **kwargs):
     with Environment.manage():
         registry = Registry(dbname)
         cr = registry.cursor()
-        context = kwargs.pop('context') or {}
+        context = kwargs.get('context') and kwargs.pop('context') or {}
         env = Environment(cr, uid, context)
         # openerp.api.Environment._local.environments = env
         try:

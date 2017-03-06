@@ -46,8 +46,8 @@ class CeleryTask(object):
                     dbname = cr.dbname
                 else:
                     arglist.pop(0)  # Remove self
-                    cr = arglist.pop(1)
-                    uid = arglist.pop(2)
+                    cr = arglist.pop(0)
+                    uid = arglist.pop(0)
                 dbname = cr.dbname
                 fname = f.__name__
                 # Pass OpenERP server config to the worker
