@@ -42,6 +42,8 @@ def execute(conf_attrs, dbname, uid, obj, method, *args, **kwargs):
         # openerp.api.Environment._local.environments = env
         try:
             getattr(env.registry[obj], method)(cr, uid, *args, **kwargs)
+            # Commit only when function finish
+            env.cr.commit()
         except Exception as exc:
             env.cr.rollback()
             try:
@@ -52,6 +54,5 @@ def execute(conf_attrs, dbname, uid, obj, method, *args, **kwargs):
             except Exception as retry_exc:
                 raise retry_exc
         finally:
-            env.cr.commit()
             env.cr.close()
     return True
